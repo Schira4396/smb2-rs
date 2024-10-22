@@ -1,2 +1,27 @@
 # smb2-rs
-A pure rust implementation based on the BMS 2.1 protocol
+
+这是一个用于smb2.1 协议认证的库，它使用纯rust实现，起因是我翻遍了github，并没有发现相关且较为成熟的库，唯一有用的只能工作于3.X，但这样的话它的兼容性就不高了，smb3从server 2016/windows 10引入，那么在那之前的windows就没法搞了，但是截止目前，至少smb 2.1支持从server 2008到2016、windows 7到windows 10，所以有了这个库
+
+
+## 0x01 说明
+
+😊😊😊此库是纯rust手搓的，Linux/Win都兼容且不依赖libsmbclient，目前在windows7、windows server 2008、windows server 2012以及windows 10上测试通过。
+
+
+
+## 0x02 注意
+
+🤖🤖🤖它只能实现认证，旨在方便网络安全行业的从业人员/学生进行学习和研究，没有其他目的，如果你想拿它用来编写自己的开源/闭源工具，那么请点个star，否则诅咒你**干蓝队被日穿，干红队被溯到裤衩都不剩，挖src洞全被抢**。
+
+
+## 0x03 下一步计划
+
+|   序号    |            说明            | 进度 |
+| :-------: | :------------------------: | :--: |
+|  smb v1   |    windows server 2003     |  ×   |
+|  smb v3   | windows 10 or server 2016+ |  ×   |
+| tree conn |            ...             |  ×   |
+
+## 0x04 免责声明
+
+😡😡😡基于此库开发的任何恶意工具或检测出的样本，均和本人没有任何关系。
