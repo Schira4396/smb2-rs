@@ -5,7 +5,9 @@
 
 ## 0x01 说明
 
-😊😊😊此库是纯rust手搓的，Linux/Win都兼容且不依赖libsmbclient，目前在windows7、windows server 2008、windows server 2012以及windows 10上测试通过。
+😊😊😊此库是纯rust手搓的，Linux/Win都兼容且不依赖lib-smbclient的C库，目前在windows7、windows server 2008、windows server 2012以及windows 10上测试通过。
+
+😊😊😊如果有想法可以加入我一起完善。
 
 
 
