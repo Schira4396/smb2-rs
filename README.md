@@ -49,7 +49,7 @@ async fn main() -> Result<()> {
 |    smb v1    |    Windows server 2003     |  ×   |
 |    smb v3    | Windows 10 or server 2016+ |  ×   |
 | Tree Connect |            ...             |  ×   |
-|     PTH      |          you know          |  ×   |
+|     PTH      |           你懂的           |  ×   |
 
 ## 0x05 免责声明
 
