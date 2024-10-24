@@ -1,5 +1,5 @@
 
-use core::str;
+// use core::str;
 // use base64::prelude::{ Engine};
 
 
@@ -9,7 +9,7 @@ use asn1_rs::nom::number::complete::{u32, u8};
 use asn1_rs::{Enumerated, FromDer, OctetString, Oid, OidParseError, ToDer};
 use asn1_rs::nom::AsBytes;
 use bincode::{Options};
-use anyhow::{Result, Context};
+use anyhow::{Result};
 use serde::{Deserialize, Serialize, };
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
@@ -18,13 +18,13 @@ use ntlmclient::{Flags, Message, TargetInfoType};
 
 
 
-pub struct SmbOptions {
-    pub Host : String,
-    pub Port : String,
-    pub User:        String,
-    pub Domain:      String,
-    pub Workstation: String,
-    pub Password:    String,
+pub struct SmbOptions<'a> {
+    pub Host : &'a str,
+    pub Port : &'a str,
+    pub User:        &'a str,
+    pub Domain:      &'a str,
+    pub Workstation: &'a str,
+    pub Password:    &'a str,
 
 
 }
@@ -56,14 +56,14 @@ impl SmbResult {
 async fn main() -> Result<()> {
 
     let op = SmbOptions{
-        Host:        "192.168.132.173".to_string(),
-        Port:        "445".to_string(),
-        User:        "administrator".to_string(),
-        Domain:      "corp".to_string(),
-        Workstation: "123".to_string(),
-        Password:    "123456".to_string(),
+        Host:        "192.168.132.173",
+        Port:        "445",
+        User:        "administrator",
+        Domain:      "corp",
+        Workstation: "123",
+        Password:    "123456",
     };
-    let result = Conn(op).await?;
+    let mut result = Conn(op).await?;
     result.IsAuthenticated();
     println!("status_code: {:?}", result.StatusCode);
     Ok(())
@@ -74,14 +74,14 @@ async fn main() -> Result<()> {
 
 
 
-pub async fn Conn(op:SmbOptions) -> Result<SmbResult> {
+pub async fn Conn(op:SmbOptions<'_>) -> Result<SmbResult> {
 
     let credss = ntlmclient::Credentials {
-        username: op.User.to_owned(),
-        password: op.Password.to_owned(),
-        domain: op.Domain.to_owned(),
+        username: op.User.to_string(),
+        password: op.Password.to_string(),
+        domain: op.Domain.to_string(),
     };
-    let target = op.Host + ":" + &(op.Port);
+    let target = op.Host.to_owned() + ":" + &(op.Port);
     println!("target is: {:?}", target);
     let mut stream = TcpStream::connect(target).await?;
     let mut newheader = newHeader();
@@ -181,7 +181,7 @@ pub async fn Conn(op:SmbOptions) -> Result<SmbResult> {
 
 
 
-    let (a,b) = generate_session_setup_req1(op.Domain,op.Workstation, f)?;
+    let (a,b) = generate_session_setup_req1(op.Domain.to_string(),op.Workstation.to_string(), f)?;
     k.SecurityBufferLength = b as u16;
     let mut dd = bincode::DefaultOptions::new().with_fixint_encoding().with_little_endian().serialize(&k).expect("Serialization failed");
     dd.extend_from_slice(&a);
