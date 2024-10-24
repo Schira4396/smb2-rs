@@ -1,6 +1,6 @@
 
-// use core::str;
-// use base64::prelude::{ Engine};
+
+
 
 
 use std::str::{FromStr};
@@ -17,7 +17,8 @@ use ntlmclient;
 use ntlmclient::{Flags, Message, TargetInfoType};
 
 
-
+///This is a configuration item that tells smb2-rs the user name, password,
+/// and other information you gave.
 pub struct SmbOptions<'a> {
     pub Host : &'a str,
     pub Port : &'a str,
@@ -28,11 +29,16 @@ pub struct SmbOptions<'a> {
 
 
 }
+///This structure is used to store the join results.
 pub struct SmbResult {
     IsAuthenticated: bool,
     pub StatusCode: u32
 }
+
+
+
 impl SmbResult {
+    ///Calling this function gets the result of whether the connection was successful and the response code.
     pub fn IsAuthenticated(&mut self) -> bool {
         match self.StatusCode {
             0 => {
@@ -73,7 +79,7 @@ async fn main() -> Result<()> {
 
 
 
-
+///Core functions. All the logic is here.
 pub async fn Conn(op:SmbOptions<'_>) -> Result<SmbResult> {
 
     let credss = ntlmclient::Credentials {

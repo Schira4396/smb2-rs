@@ -1,7 +1,16 @@
 [package]
 name = "smb2-rs"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
+authors = ["Akatsuki"]
+description = "A library for smb2.1 authentication."
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/Schira4396/smb2-rs"
+repository = "https://github.com/Schira4396/smb2-rs"
+documentation = "https://github.com/Schira4396/smb2-rs"
+
+
+
 
 [dependencies]
 tokio = { version = "1", features = ["full"] }
