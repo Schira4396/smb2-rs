@@ -378,15 +378,16 @@ pub fn IsAuthenticated(code: u32) -> bool {
     match code {
         0 => {
             // println!("Status: Success")
-            return true;
+            true
         },
         3221225581 => {
-            println!("Status: Logon Failure")
+            // println!("Status: Logon Failure")
+            false
         },
         _ => {
-            println!("Status: Unknown")
+            // println!("Status: Unknown")
+            false
         },
     }
-    false
 }
 
