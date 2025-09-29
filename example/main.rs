@@ -1,33 +1,29 @@
-use smb2_rs::{ SmbOptions};
+
+use smb2_rs::SmbOption;
+
+
+
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let mut options = SmbOptions::new();
-    options.Workstation = "nmslwsnd";
-    options.Domain = "corp";
-    options.Host = "192.168.132.156";
-    options.Port = "445";
-    options.timeout = 0;
-    options.User = "administrator";
-    options.Password = "test";
+    let mut op = SmbOption::new()?;
+    op.Host = "192.168.132.185".into();
+    op.Port = "445".parse()?;
+    op.timeout = 3;
+    op.User = "administrator".into();
+    op.Password = "123456".into();
+    op.Domain = "domain".into();
+    op.Workstation = "nmsl".into();
 
-    let result = options.Conn().await;
-    match result {
-        Ok(r) => {
-            if r.isAuthenticated {
-                println!("Authenticated");
-                println!("status_code: {}", r.StatusCode);
-            }else {
-                println!("Not Authenticated");
-                println!("status_code: {}", r.StatusCode);
-            }
-        }
-        Err(e) => {
-            println!("{}", e.to_string());
-        }
-        
-    }
-    
+    // If you use this function, it will replace the plaintext password you specified
+    op.setHash("32ed87bdb5fdc5e9cba88547376818d4");
+
+
+    op.Connect().await?;
+
+
+
+
 
     Ok(())
 }

@@ -1,6 +1,6 @@
 [package]
 name = "smb2-rs"
-version = "0.2.1"
+version = "0.2.0"
 edition = "2021"
 authors = ["Akatsuki"]
 description = "A library for smb2.1 authentication."
@@ -14,11 +14,10 @@ documentation = "https://github.com/Schira4396/smb2-rs"
 
 [dependencies]
 tokio = { version = "1.41.0", features = ["full"] }
-serde = { version = "1.0.213", features = ["derive"] }
-asn1-rs = "0.6.2"
-ntlmclient = "0.1.0"
-hex = "0.4.3"
+ntlmclient = { version = "0.1.0", path = "src/ntlmclient-0.1.0" }
 anyhow = "1.0.91"
-rasn = "0.26.6"
-binrw = "0.15.0"
-thiserror = "1.0.69"
+rasn = "*"
+binrw = "*"
+thiserror = "*"
+bitflags = "2.9.1"
+hex = "*"
