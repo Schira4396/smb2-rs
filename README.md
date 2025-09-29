@@ -9,9 +9,14 @@
 目前能够实现未授权检测，认证检测以及NTLM HASH复用，你也可以根据它二开，比如实现MS17-010或者PSEXEC相关的功能。
 ## 0x02 使用方法
 
-见[example/main.rs](example/main.rs)
+作为库调用，见[example/main.rs](example/main.rs)
 
-
+作为可执行程序使用
+```rust
+cargo build --bin smbcheck --release
+smbcheck -t 192.168.1.1 -u administrator -p 123456
+smbcheck -t 192.168.1.1 --unauth
+```
 
 
 
