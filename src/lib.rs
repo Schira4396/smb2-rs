@@ -5,7 +5,7 @@ use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 use crate::error::{SmbError, SmbResult};
 use crate::smb1::{smb1Header, NegoReqBody, NegoRequest, SmbHeaderFlags, SmbHeaderFlags2, SmbOptions1};
-use crate::smb2::{NegotiateProtoResponse, SmbOptions2};
+use crate::smb2::{NegotiateProtoResponse, SmbInfo, SmbOptions2};
 
 pub mod error;
 pub mod smb1;
@@ -36,7 +36,7 @@ impl SmbOption {
 }
 
 impl SmbOption {
-    pub async fn Connect(&mut self) -> SmbResult<()> {
+    pub async fn Connect(&mut self) -> SmbResult<SmbInfo> {
         let target = format!("{}:{}", self.Host, self.Port);
         let mut t = tokio::time::Duration::from_secs(self.timeout as u64);
         //connect to server
@@ -95,16 +95,18 @@ impl SmbOption {
             let res = op1.Connect(&mut stream).await;
             match res {
                 Ok(r) => {
-                    if r.isAuthenticated {
-                        println!("Authenticated");
-                        println!("status_code: {}", r.StatusCode);
-                    }else {
-                        println!("Not Authenticated");
-                        println!("status_code: {}", r.StatusCode);
-                    }
+                    // if r.isAuthenticated {
+                    //     println!("Authenticated");
+                    //     println!("status_code: {}", r.StatusCode);
+                    // }else {
+                    //     println!("Not Authenticated");
+                    //     println!("status_code: {}", r.StatusCode);
+                    // }
+                    Ok(r)
                 }
                 Err(e) => {
-                    println!("Error: {:?}", e);
+                    // println!("Error: {:?}", e);
+                    Err(SmbError::from(anyhow!(e)))
                 }
 
             }
@@ -130,21 +132,22 @@ impl SmbOption {
             let result = options.Conn(&mut stream, negoprotoResp).await;
             match result {
                 Ok(r) => {
-                    if r.isAuthenticated {
-                        println!("Authenticated");
-                        println!("status_code: {}", r.StatusCode);
-                    }else {
-                        println!("Not Authenticated");
-                        println!("status_code: {}", r.StatusCode);
-                    }
+                    // if r.isAuthenticated {
+                    //     println!("Authenticated");
+                    //     println!("status_code: {}", r.StatusCode);
+                    // }else {
+                    //     println!("Not Authenticated");
+                    //     println!("status_code: {}", r.StatusCode);
+                    // }
+                    Ok(r)
                 }
                 Err(e) => {
-                    println!("Error: {:?}", e);
+                    // println!("Error: {:?}", e)
+                    Err(SmbError::from(anyhow!(e)))
                 }
 
             }
         }
-        Ok(())
 
     }
 

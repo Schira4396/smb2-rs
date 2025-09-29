@@ -9,7 +9,13 @@ homepage = "https://github.com/Schira4396/smb2-rs"
 repository = "https://github.com/Schira4396/smb2-rs"
 documentation = "https://github.com/Schira4396/smb2-rs"
 
+[lib]
+name = "smb2_rs"
+path = "src/lib.rs"
 
+[[bin]]
+name = "smbcheck"
+path = "src/bin/main.rs"
 
 
 [dependencies]
@@ -21,3 +27,4 @@ binrw = "*"
 thiserror = "*"
 bitflags = "2.9.1"
 hex = "*"
+clap = { version = "*", features = ["derive"] }

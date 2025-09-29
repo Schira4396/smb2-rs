@@ -19,7 +19,15 @@ async fn main() -> anyhow::Result<()> {
     op.setHash("32ed87bdb5fdc5e9cba88547376818d4");
 
 
-    op.Connect().await?;
+    match op.Connect().await {
+        Ok(r) => {
+            println!("Authenticated");
+            println!("{:?}", r.StatusCode)
+        }
+        Err(e) => {
+            println!("Error: {}", e);
+        }
+    };
 
 
 
