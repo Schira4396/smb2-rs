@@ -1,12 +1,12 @@
 # smb2-rs
 
-这是一个用于Smb2.1 协议认证的库。
+这是一个用于Smb协议认证的库，它目前支持SMBv1和SMBv2.1。
 
 ## 0x01 说明
 
 此库是纯rust手搓的，Linux/Windows都兼容且不依赖lib-smbclient的C库，目前在Windows7、Windows server 2008、Windows server 2012、Windows server 2016以及Windows 10上测试通过，samba没测。
 
-
+目前能够实现未授权检测，认证检测以及NTLM HASH复用，你也可以根据它二开，比如实现MS17-010或者PSEXEC相关的功能。
 ## 0x02 使用方法
 
 见[example/main.rs](example/main.rs)
